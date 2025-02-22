@@ -1,0 +1,109 @@
+.header-container {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.nav-container {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurent-heading {
+  font-size: 15px;
+}
+
+@media (min-width: 768px) {
+  .restaurent-heading {
+    font-size: 25px;
+  }
+}
+
+.my-orders-container {
+  display: flex;
+  align-items: center;
+}
+
+.my-orders-heading {
+  display: none;
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+  .my-orders-heading {
+    display: block;
+    font-size: 15px;
+    color: #5e5e5d;
+  }
+}
+
+.cart-tab {
+  display: flex;
+  align-items: center;
+}
+
+.home-tab {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.cart-icon {
+  width: 20px;
+  height: 20px;
+  color: #5e5e5d;
+}
+
+@media (min-width: 768px) {
+  .cart-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.cart-icon-container {
+  display: flex;
+}
+
+.cart-count-container {
+  background-color: #ff654e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  position: relative;
+  right: 10px;
+}
+
+.cart-count {
+  color: #ffffff;
+  font-size: 8px;
+}
+
+@media (min-width: 768px) {
+  .cart-count-container {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+    right: 10px;
+  }
+
+  .cart-count {
+    color: #ffffff;
+    font-size: 10px;
+  }
+}

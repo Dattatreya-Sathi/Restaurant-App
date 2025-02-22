@@ -1,0 +1,38 @@
+.category-item {
+  min-width: 120px;
+  max-width: 150px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-bottom: 5px;
+}
+
+.category-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+@media (min-width: 768px) {
+  .category-item {
+    min-width: 200px;
+  }
+  .category-button {
+    font-size: 15px;
+  }
+}
+
+.activeTabStyle {
+  color: #ff654e;
+  border: solid #ff654e;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.activeTabColor {
+  color: #ff654e;
+}
