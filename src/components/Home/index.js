@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext, useCallback} from 'react'
 import Loader from 'react-loader-spinner'
-import AppContext from '../../context/AppContext'
+import CartContext from '../../context/CartContext'
 import Header from '../Header'
 import TabMenuItems from '../TabMenuItems'
 import ItemsList from '../ItemsList'
@@ -12,7 +12,7 @@ const Home = () => {
   const [selectedTab, isSelected] = useState('')
   const [cartItems, onAddCart] = useState(0)
   const [error, setError] = useState(false) // State for error
-  const {setRestaurantName} = useContext(AppContext)
+  const {setRestaurantName} = useContext(CartContext)
 
   const getMenuDetails = useCallback(async () => {
     setIsLoading(true)
@@ -96,6 +96,7 @@ const Home = () => {
       eachCategory => eachCategory.menuCategoryId === selectedTab,
     )
     // console.log(itemsList)
+
     return (
       <div className="home-container">
         <Header />

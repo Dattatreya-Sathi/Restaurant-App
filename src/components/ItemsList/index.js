@@ -1,9 +1,9 @@
-import {useContext} from 'react'
-import AppContext from '../../context/AppContext'
+import {useContext, useState} from 'react'
+import CartContext from '../../context/CartContext'
 import './index.css'
 
 const ItemsList = props => {
-  const {eachItem, onAddCart} = props
+  const {eachItem} = props
   const {
     dishAvailability,
     dishCalories,
@@ -14,23 +14,22 @@ const ItemsList = props => {
     dishName,
     dishPrice,
     dishType,
-    dishId,
   } = eachItem
 
-  const {onClickAddtoCart, cartList, decrementCartItemQuantity} = useContext(
-    AppContext,
-  )
+  const [quantity, setQuantity] = useState(0)
 
-  const cartItem = cartList.find(item => item.dishId === dishId)
-  const quantityNum = cartItem ? cartItem.quantity : 0 // Default to 0 if not in cart
+  const {onClickAddtoCart} = useContext(CartContext)
 
   const onIncreaseQty = () => {
-    onClickAddtoCart(eachItem)
+    setQuantity(prevState => prevState + 1)
   }
 
   const onDecreaseQty = () => {
-    decrementCartItemQuantity(dishId)
-    onAddCart(prevCart => (prevCart > 0 ? prevCart - 1 : 0))
+    setQuantity(prevState => (prevState > 0 ? prevState - 1 : 0))
+  }
+
+  const onClickAddtoCartBtn = () => {
+    onClickAddtoCart({...eachItem, quantity})
   }
 
   return (
@@ -55,7 +54,7 @@ const ItemsList = props => {
                 >
                   -
                 </button>
-                <p className="quantity">{quantityNum}</p>
+                <p className="quantity">{quantity}</p>
                 <button
                   type="button"
                   className="quantity-button"
@@ -64,6 +63,15 @@ const ItemsList = props => {
                   +
                 </button>
               </div>
+              {quantity > 0 && (
+                <button
+                  type="button"
+                  className="AddtoCartBtn"
+                  onClick={onClickAddtoCartBtn}
+                >
+                  ADD TO CART
+                </button>
+              )}
             </div>
           ) : (
             <p className="not-available"> Not available</p>

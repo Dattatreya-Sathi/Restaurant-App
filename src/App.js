@@ -1,15 +1,18 @@
 import {useState} from 'react'
-import {Switch, Route} from 'react-router-dom'
-import AppContext from './context/AppContext'
+import {Switch, Route, Redirect} from 'react-router-dom'
+import CartContext from './context/CartContext'
+import Login from './components/Login'
+import ProtectedRoute from './components/ProtectedRoute'
 import Home from './components/Home'
 import Cart from './components/Cart'
+import NotFound from './components/NotFound'
 import './App.css'
 
 const App = () => {
   const [cartList, addCartItem] = useState([]) // it stores the cart items
   const [restaurantName, setRestaurantName] = useState('') // restaurantName for header
 
-  const emptyCartList = () => {
+  const removeAllCartItems = () => {
     addCartItem([]) // if the user clicks on Remove all button the entire cartList will delete
   }
   const removeCartItem = dishId => {
@@ -53,28 +56,31 @@ const App = () => {
   }
 
   const onClickAddtoCart = product => {
-    addCartItem(prevCart => {
-      const existingItem = prevCart.find(
-        eachItem => eachItem.dishId === product.dishId,
-      )
+    const sameProduct = cartList.find(
+      eachItem => eachItem.dishId === product.dishId,
+    )
 
-      if (existingItem) {
-        return prevCart.map(eachItem =>
-          eachItem.dishId === product.dishId
-            ? {...eachItem, quantity: eachItem.quantity + 1} // If the dish exists in cartList, it will Increase quantity
-            : eachItem,
-        )
-      }
-      return [...prevCart, {...product, quantity: 1}] // If the dish not exists in cartList, it will Add new item with quantity 1
-    })
+    if (sameProduct) {
+      addCartItem(prevState => [
+        ...prevState.map(eachItem => {
+          if (sameProduct.dishId === eachItem.dishId) {
+            const updatedQuantity = eachItem.quantity + product.quantity
+            return {...eachItem, quantity: updatedQuantity}
+          }
+          return eachItem
+        }),
+      ])
+    } else {
+      addCartItem(prevState => [...prevState, product])
+    }
   }
 
   return (
-    <AppContext.Provider
+    <CartContext.Provider
       value={{
         cartList,
         addCartItem,
-        emptyCartList,
+        removeAllCartItems,
         incrementCartItemQuantity,
         decrementCartItemQuantity,
         removeCartItem,
@@ -84,10 +90,13 @@ const App = () => {
       }}
     >
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/cart" component={Cart} />
+        <Route exact path="/not-found" component={NotFound} />
+        <Redirect to="/not-found" />
       </Switch>
-    </AppContext.Provider>
+    </CartContext.Provider>
   )
 }
 

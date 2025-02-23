@@ -1,14 +1,14 @@
 import {useContext} from 'react'
 import {Link} from 'react-router-dom'
-import AppContext from '../../context/AppContext'
+import CartContext from '../../context/CartContext'
 import Header from '../Header'
 import CartItem from '../CartItem'
 import './index.css'
 
 const Cart = () => {
-  const {cartList, emptyCartList} = useContext(AppContext)
+  const {cartList, removeAllCartItems} = useContext(CartContext)
 
-  const onClickRemoveList = () => emptyCartList()
+  const onClickRemoveList = () => removeAllCartItems()
 
   const renderEmptyCartView = () => (
     <div className="cart-empty-view-container">

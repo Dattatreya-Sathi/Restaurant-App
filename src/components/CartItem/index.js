@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import {AiFillCloseCircle} from 'react-icons/ai'
-import AppContext from '../../context/AppContext'
+import CartContext from '../../context/CartContext'
 import './index.css'
 
 const CartItem = props => {
@@ -8,7 +8,7 @@ const CartItem = props => {
     incrementCartItemQuantity,
     decrementCartItemQuantity,
     removeCartItem,
-  } = useContext(AppContext)
+  } = useContext(CartContext)
 
   const {cartItemDetails} = props
   const {
